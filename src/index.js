@@ -1,24 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
-  let form = document.querySelector("form");
-  form.addEventListener('submit', (e) =>{
-    e.preventDefault();
-    handleTodo();
-    form.reset();
-   });
+  const form = document.getElementById('create-task-form');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    buildList(e.target.new_task.value)
+    // Reset Form Here!!
+    form.reset()
+  })
+})
 
-  function handleTodo(todo){
-    todo = document.getElementById("new_task_description").value; 
-    let li = document.createElement("LI");
-    let BTN = document.createElement("button");
-    BTN.addEventListener("click", deleteToDo);
-    BTN.textContent = "delete"
-    li.textContent = `${todo}`;
-    let tasks = document.getElementById("tasks");
-    tasks.appendChild(li);
-    li.appendChild(BTN);
-   }
-   function deleteToDo(e){
-    e.target.parentNode.remove();
-   }
-});
+// Function to build out To-DO
+const buildList = (todo) => {
+  let li = document.createElement('li')
+  let btn = document.createElement('button')
+  btn.style.backgroundColor = 'red'
+  btn.addEventListener('click', deleteHandler)
+  btn.textContent = 'x'
+  li.textContent = `${todo} `
+  li.appendChild(btn)
+  console.log(li)
+  document.querySelector('#tasks').appendChild(li)
+}
+
+function deleteHandler(e) {
+  e.target.parentNode.remove()
+}
+
+function sortList(e) {
+  e.target.parentNode.sort()
+}
